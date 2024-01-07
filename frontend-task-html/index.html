@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Frontend Task</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+<!-- Your React Components will be inserted here -->
+<script>
+  // Sample data
+  const data = [
+    { id: 1, name: 'John Doe', age: 25, email: 'john@example.com' },
+    { id: 2, name: 'Jane Doe', age: 30, email: 'jane@example.com' },
+    { id: 1, name: 'MR MAN', age: 65, email: 'Man@example.com' },
+        { id: 9, name: 'Jim bou', age: 50, email: 'jimjohn@example.com' },
+        { id: 1, name: 'Fom Kom', age: 25, email: 'fomn@example.com' },
+        { id: 8, name: 'John Doe', age: 25, email: 'john@example.com' },
+        { id: 5, name: 'Jim bou', age: 50, email: 'jimjohn@example.com' },
+        { id: 4, name: 'John Doe', age: 25, email: 'john@example.com' },
+        { id: 3, name: 'MR MAN', age: 65, email: 'Man@example.com' },
+        { id: 2, name: 'John Doe', age: 25, email: 'john@example.com' },
+  
+  ];
+
+  // React component for each row
+  const createTableRow = (row) => {
+    const handleEdit = (field, value) => {
+      console.log(`Edited ${field}: ${value}`);
+      // You can prepare the data for API post here
+    };
+
+    const rowElement = document.createElement('tr');
+
+    const idElement = document.createElement('td');
+    idElement.textContent = row.id;
+    rowElement.appendChild(idElement);
+
+    const nameElement = document.createElement('td');
+    nameElement.innerHTML = `<span contentEditable onBlur="${(e) => handleEdit('name', e.target.innerText)}">${row.name}</span>`;
+    rowElement.appendChild(nameElement);
+
+    const ageElement = document.createElement('td');
+    ageElement.innerHTML = `<span contentEditable onBlur="${(e) => handleEdit('age', e.target.innerText)}">${row.age}</span>`;
+    rowElement.appendChild(ageElement);
+
+    const emailElement = document.createElement('td');
+    emailElement.innerHTML = `<span contentEditable onBlur="${(e) => handleEdit('email', e.target.innerText)}">${row.email}</span>`;
+    rowElement.appendChild(emailElement);
+
+    return rowElement;
+  };
+
+  // React component for the main app
+  const renderApp = () => {
+    const rootElement = document.getElementById('root');
+    const tableElement = document.createElement('table');
+    const theadElement = document.createElement('thead');
+    const tbodyElement = document.createElement('tbody');
+
+    // Table header
+    const headerRow = document.createElement('tr');
+    ['ID', 'Name', 'Age', 'Email',''].forEach((header) => {
+      const thElement = document.createElement('th');
+      thElement.textContent = header;
+      headerRow.appendChild(thElement);
+    });
+    theadElement.appendChild(headerRow);
+    tableElement.appendChild(theadElement);
+
+    // Table body
+    data.forEach((row) => {
+      const rowElement = createTableRow(row);
+      tbodyElement.appendChild(rowElement);
+    });
+
+    tableElement.appendChild(tbodyElement);
+    rootElement.appendChild(tableElement);
+  };
+
+  // Render the App component into the root div
+  renderApp();
+</script>
+
+</body>
+</html>
